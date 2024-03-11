@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Items</title>
+    <style>
+        #item-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-height: calc(100vh - 100px); /* Adjusted height to fit just above the actual screen size */
+            overflow-y: auto;
+        }
+        .item {
+            width: 30%; /* Three items per row */
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px; /* Center images and add space below */
+        }
+        .item-title {
+            font-size: 18px; /* Larger font size for title */
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        function loadMoreItems() {
+            var container = document.getElementById('item-container');
+            if (container.scrollHeight - container.scrollTop === container.clientHeight) {
+                // Load more items using AJAX
+                // You can make an AJAX call to your Flask route to fetch more items
+                // and append them to the container
+                // Example:
+                // var nextPage = getNextPage(); // Implement a function to get the next page number
+                // fetch('/?page=' + nextPage)
+                //     .then(response => response.json())
+                //     .then(data => {
+                //         // Append new items to the container
+                //     });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var container = document.getElementById('item-container');
+            container.style.maxHeight = (window.innerHeight - 100) + 'px'; // Adjusted height based on screen size
+            container.addEventListener('scroll', loadMoreItems);
+        });
+    </script>
+</head>
+<body>
+    <h1>Items</h1>
+    <div id="item-container">
+        {% for item in items %}
+        <div class="item">
+            <div class="item-title">{{ item[1] }}</div>
+            {% if item[2] %}
+            <img src="{{ item[2] }}" alt="Item Image">
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
