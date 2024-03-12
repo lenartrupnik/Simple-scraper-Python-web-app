@@ -27,7 +27,7 @@ class ScrapmeSpider(scrapy.Spider):
 
         new_page = response_data['page'] + 1
         
-        if new_page <= 1:
+        if new_page <= 20:
             self.params["page"] = new_page
             yield response.follow(self.build_url(), callback=self.parse_api_response, body=json.dumps(self.params))
 
