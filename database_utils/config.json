@@ -1,0 +1,7 @@
+{ 
+    "host": "db",
+    "dbname": "scrapy_db",
+    "user": "postgres",
+    "password": "1Q2W3E4r!",
+    "port": "5432"
+}

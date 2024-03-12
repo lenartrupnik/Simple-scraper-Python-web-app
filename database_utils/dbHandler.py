@@ -1,19 +1,18 @@
 import psycopg2, json
 
-class DatabaseConnector:
+class DBHandler:
     def __init__(self):
         config = self.load_config()
-        
         try:
             self.conn = psycopg2.connect(
                 dbname=config['dbname'], 
                 user=config['user'], 
-                password=['password'], 
-                host=['host'], 
-                port='port')
+                password=config['password'], 
+                host=config['host'], 
+                port=config['port'])
+            
             self.cur = self.conn.cursor()
             
-            # Print PostgreSQL server version
             self.cur.execute("SELECT version();")
             record = self.cur.fetchone()
             print("You are successfully connected to - ", record, "\n")
@@ -31,8 +30,15 @@ class DatabaseConnector:
     def get_cursor(self):
         return self.cur
     
-    def load_config(filename='config.json'):
-        with open(filename) as f:
+    def get_conn(self):
+        return self.conn
+    
+    def load_config(self, filename='../database_utils/config.json'):
+        with open(filename, "r") as f:
             config = json.load(f)
             
         return config
+    
+    def close(self):
+        self.cur.close()
+        self.conn.close()
