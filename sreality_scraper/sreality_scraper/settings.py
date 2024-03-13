@@ -92,4 +92,10 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
+# Allow dupefilter
 DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
+
+
+# Set the log level to only display WARNING messages and above
+LOG_LEVEL = 'INFO'
+
